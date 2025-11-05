@@ -1,0 +1,19 @@
+
+docker ps
+docker stop $(docker ps -aq)
+docker container prune -f
+docker-compose up --build -d
+
+# mongodb
+docker exec -it order-db mongosh "mongodb://admin:123456@localhost:27017"
+
+test> use admin
+switched to db admin
+admin> show collections
+system.users
+system.version
+admin>
+
+# Kafka
+localhost:8081/brokers
+
