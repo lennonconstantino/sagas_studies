@@ -17,3 +17,9 @@ admin>
 # Kafka
 localhost:8081/brokers
 
+
+## Fazendo o build da aplicação
+gradle build
+
+docker logs --follow payment-service
+
