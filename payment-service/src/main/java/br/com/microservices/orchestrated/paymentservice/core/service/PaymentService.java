@@ -146,7 +146,6 @@ public class PaymentService {
         } catch (Exception ex) {
             addHistory(event, "Rollback not executed for payment: ". concat(ex.getMessage()));
         }
-
         producer.sendEvent(jsonUtil.toJson(event)) ;
     }
 }
