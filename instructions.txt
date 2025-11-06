@@ -13,6 +13,9 @@ admin> show collections
 system.users
 system.version
 admin>
+db.order.find()
+db.event.find()
+db.order.find({"_id":new ObjectId("6516af2f2fc4db317fe7d829")})
 
 # Kafka
 localhost:8081/brokers
@@ -23,12 +26,16 @@ gradle build
 
 docker logs --follow payment-service
 
-
-# versionamento
-git tag -a v1.0.1 -m "Release 1.0.1 - versao com a estrutura inicial dtos, utilitarios, producers e consumers"
-git show v1.0.1
-git push origin v1.0.1
-
-
 # docker utils
 docker-compose up --build -d kafka redpanda-console order-db product-db inventory-db payment-db
+
+# swagger
+localhost:3000/swagger-ui/index.html
+
+
+# versionamento
+git tag -a v1.0.1 -m "Release 1.1.0 - versao com o order-service"
+git show v1.1.0
+git push origin v1.1.0
+
+
