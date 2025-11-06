@@ -34,7 +34,7 @@ localhost:3000/swagger-ui/index.html
 
 
 # versionamento
-git tag -a v1.0.1 -m "Release 1.1.0 - versao com o order-service"
+git tag -a v1.1.0 -m "Release 1.1.0 - versao com o order-service"
 git show v1.1.0
 git push origin v1.1.0
 
