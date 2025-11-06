@@ -25,9 +25,9 @@ docker logs --follow payment-service
 
 
 # versionamento
-git tag -a v1.0.0 -m "Release 1.0.0 - versao inicial ambiente configurado e funcionando"
-git show v1.0.0
-git push origin v1.0.0
+git tag -a v1.0.1 -m "Release 1.0.1 - versao com a estrutura inicial dtos, utilitarios, producers e consumers"
+git show v1.0.1
+git push origin v1.0.1
 
 
 # docker utils
