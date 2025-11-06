@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-import static br.com.microservices.orchestrated.paymentservice.core.enums.ESagaStatus.ROLLBACK_PENDING;
-import static br.com.microservices.orchestrated.paymentservice.core.enums.ESagaStatus.SUCCESS;
+import static br.com.microservices.orchestrated.paymentservice.core.enums.ESagaStatus.*;
 
 @Slf4j
 @Service
@@ -127,6 +126,22 @@ public class PaymentService {
     private void handleFailCurrentNotExecuted(Event event, String message) {
         event.setStatus(ROLLBACK_PENDING);
         event.setSource(CURRENT_SOURCE);
-        addHistory(event, "Fail to payment: ".concat(message));
+        addHistory(event, "Fail to realized payment: ".concat(message));
+    }
+
+    private void changePaymentStatusToRefund (Event event) {
+        var payment = findByOrderIdAndTransactionId(event);
+        payment.setStatus(EPaymentStatus.REFUND);
+        // integration with 3 party
+        setEventAmountItems(event, payment);
+        save(payment);
+    }
+
+    public void realizeRefund(Event event) {
+        changePaymentStatusToRefund(event);
+        event.setStatus(FAIL) ;
+        event.setSource(CURRENT_SOURCE) ;
+        addHistory(event, "Rollback executed for payment!");
+        producer.sendEvent(jsonUtil.toJson(event)) ;
     }
 }
