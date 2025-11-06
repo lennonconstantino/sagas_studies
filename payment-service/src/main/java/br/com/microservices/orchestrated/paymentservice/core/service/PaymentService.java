@@ -129,7 +129,7 @@ public class PaymentService {
         addHistory(event, "Fail to realized payment: ".concat(message));
     }
 
-    private void changePaymentStatusToRefund (Event event) {
+    private void changePaymentStatusToRefund(Event event) {
         var payment = findByOrderIdAndTransactionId(event);
         payment.setStatus(EPaymentStatus.REFUND);
         // integration with 3 party
@@ -138,10 +138,15 @@ public class PaymentService {
     }
 
     public void realizeRefund(Event event) {
-        changePaymentStatusToRefund(event);
-        event.setStatus(FAIL) ;
-        event.setSource(CURRENT_SOURCE) ;
-        addHistory(event, "Rollback executed for payment!");
+        event.setStatus(FAIL);
+        event.setSource(CURRENT_SOURCE);
+        try {
+            changePaymentStatusToRefund(event);
+            addHistory(event, "Rollback executed for payment!");
+        } catch (Exception ex) {
+            addHistory(event, "Rollback not executed for payment: ". concat(ex.getMessage()));
+        }
+
         producer.sendEvent(jsonUtil.toJson(event)) ;
     }
 }
