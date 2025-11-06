@@ -34,8 +34,8 @@ localhost:3000/swagger-ui/index.html
 
 
 # versionamento
-git tag -a v1.4.0 -m "Release 1.4.0 - versao com o inventory-service"
-git show v1.4.0
-git push origin v1.4.0
+git tag -a v1.5.0 -m "Release 1.5.0 - versao com o orchestrator-service"
+git show v1.5.0
+git push origin v1.5.0
 
 
